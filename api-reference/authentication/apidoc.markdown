@@ -17,7 +17,7 @@ If you are an existing partner with an existing app, please read both the [Migra
   * [Token Management](#manage_token)
   * [Base URIs](#base_uri)
   * [ID Token](#id_token)
-* Types of grants
+* [Types of grants](#types_of_grants)
   * [Authorization grant](#auth_grant)
   * [Password grant](#password_grant)
   * [Client Credentials grant](#client_credentials)
@@ -25,7 +25,6 @@ If you are an existing partner with an existing app, please read both the [Migra
 * [Response Codes](#response_codes)
 
 **Note:** The old authentication documentation can be found [here](/api-reference-deprecated/old-auth/old-auth.html)
-
 
 ## <a name="access_token"></a>Access Tokens
 
@@ -71,9 +70,9 @@ Connection: Close
 
 You can obtain a token for three different types of principals in the Concur universe.
 
-* User
-* Application
-* Company
+* User - used for individual level connections (typically App Center and TripLink partner applications)
+* Application - used to edit/update your application details
+* Company - used for enterprise level integrations. This includes first party applications, App Center and TripLink Enterprise applications and TMC integrations.
 
 **Token Lifetime**
 
@@ -231,6 +230,21 @@ Authentication service will return an [OPENID](http://openid.net) compatible [ID
 
 ### Verifying an id_token
 The Authentication service exposes [JWKs](https://tools.ietf.org/html/rfc7517) that can be used to validate the id_token in the form of a JWT. Validating a JWT is described in detail in [RFC 7519 - sec 7.2](https://tools.ietf.org/html/rfc7519#section-7.2)
+
+
+# Types of Grants
+
+Concur integrations come in several forms. Depending on your application, different grant types may be available to you.
+
+Concur App Center and TripLink Partners:
+* Sign in with Concur (Authorization Grant)
+* App Center connections (Password Grant)
+* TripLink connections (Connection Request)
+
+Concur Customer Applications and Third-Party Application Developers ("non-Concur Applications"):
+* Password Grant
+* Authorization Grant
+
 
 ## <a name="auth_grant"></a>Authorization grant
 
