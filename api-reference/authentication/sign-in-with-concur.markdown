@@ -23,17 +23,17 @@ Before you begin, request an app here.
 
 1. Load the Concur style library.
 
-'''<script src="https://static.concursolutions.com/" async defer></script>
-'''
+```<script src="https://static.concursolutions.com/" async defer></script>
+```
 
 2. Add the "Sign in with Concur button" and client ID to your page. Specify the app ID as:
 
-'''<meta name="concur-signin-app_id" app_id="<app_id>">
-'''
+```<meta name="concur-signin-app_id" app_id="<app_id>">
+```
 
 3. Add the "Sign in with Concur button". Styles will be applied from our style library.
 
-'''<div class="concur-signin" data-onsuccess="onSignIn"></div>
-'''
+```<div class="concur-signin" data-onsuccess="onSignIn"></div>
+```
 
 To view the Sign in with Concur flow from an end-user perspective, please see our user guide here.
