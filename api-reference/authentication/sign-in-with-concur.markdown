@@ -27,7 +27,7 @@ Before you begin, request an app here.
 <script src="https://static.concursolutions.com/" async defer></script>
 ```
 
-2. Add the "Sign in with Concur button" and client ID to your page. Specify the app ID as:
+2. Add your client ID to your page. Specify the app ID as:
 
 ```
 <meta name="concur-signin-app_id" app_id="<app_id>">
@@ -40,3 +40,7 @@ Before you begin, request an app here.
 ```
 
 To view the Sign in with Concur flow from an end-user perspective, please see our user guide here.
+
+Once signed in, the user will be redirected to your redirect URI and connected.
+
+To maintain the connection, please see the refresh documentation here: https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token
