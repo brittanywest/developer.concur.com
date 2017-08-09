@@ -50,5 +50,5 @@ YourRedirectUri?requesttoken={token}
 
 Applications must:
 * Maintain the tokens for future use.  To maintain the connection, please see the refresh documentation here: https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token
-* (Provide the option to disconnect)[https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token]
+* [Provide the option to disconnect](https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token)
 
