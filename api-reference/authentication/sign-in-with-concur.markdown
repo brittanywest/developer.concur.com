@@ -11,12 +11,14 @@ Our sign in process uses the secure OAuth2.0 protocol.
 ### Benefits
 
 For partners
-•	Streamlines account set-up: User’s profile is pre-validated, including basic PII information plus travel preferences
-•	Simplifies development and integration: Quickly obtain authentication tokens for the user and call Concur’s APIs
+
+* Streamlines account set-up: User’s profile is pre-validated, including basic PII information plus travel preferences
+*	Simplifies development and integration: Quickly obtain authentication tokens for the user and call Concur’s APIs
 
 For users
-•	Quick and hassle-free way to sign up for a new app
-•	Secure: User’s Concur credentials are never shared with partners   
+
+* Quick and hassle-free way to sign up for a new app
+* Secure: User’s Concur credentials are never shared with partners   
 
 
 ## Certification
@@ -30,33 +32,36 @@ The below steps cover implementing "Sign in with Concur" within your website.
 ### Steps
 
 
-1. Request an app.
+#### Request an app.
 Before you can integrate Sign in with Concur into your application, you need to register your application with Concur. You can do this by contacting your Partner Enablement Manager or Partner Account Manager. Once you have registered an application, you will receive a clientId and clientSecret. The clientId is a unique UUID4 identifier for your application, and the clientSecret is your application password. You will be using this credential to obtain tokens either for the application itself, or on behalf of a user.
 
 
-2. Load the Concur style library.
+#### Load the Concur style library.
 
 ```
 <script src="https://static.concursolutions.com/" async defer></script>
 ```
 
-3. Add the "Sign in with Concur button". Styles will be applied from our style library.
+#### Add the "Sign in with Concur button". Styles will be applied from our style library.
 
 ```
 <div class="concur-signin" data-onsuccess="onSignIn"></div>
 ```
 
-4. Initiate the Login flow. Your app must initiate the login flow by redirected to the below endpoint.
+#### Initiate the Login flow. Your app must initiate the login flow by redirected to the below endpoint.
 
 `GET /oauth2/v0/authorize`
 
 Example:
 
+```
 https://www-us.api.concursolutions.com/oauth2/v0/authorize?client_id=<UUID> \
 &redirect_uri=https%3A//www.hipmunk.com/auth/concur/callback \
 &response_type=code \
 &state=<state information>
+```
 
+This endpoint accepts the following parameters:
 
 Name | Type | Format | Description
 -----|------|--------|------------
@@ -74,13 +79,13 @@ This renders the Sign in with Concur screen which presents two options to the us
 
 To view the Sign in with Concur flow from an end-user perspective, please see our user guide here.
 
-4. Once signed in, the user will be redirected to your redirect URI with a temporary token appended. 
+#### Once signed in, the user will be redirected to your redirect URI with a temporary token appended. 
 
 ```
 YourRedirectUri?cc={token}
 ```
 
-5. Exchanging the token. Your app must parse the token and [exchange the token for a long lived refresh token](https://developer.concur.com/api-reference/authentication/apidoc.html#password_grant).
+#### Exchanging the token. Your app must parse the token and [exchange the token for a long lived refresh token](https://developer.concur.com/api-reference/authentication/apidoc.html#password_grant).
 
 When the partner receives the redirect_uri call with the `cc` token, partner needs to call oauth2’s `/verify_otl` endpoint.
 
@@ -110,9 +115,9 @@ Tokens should be stored and an account created.
 # Create and Manage Accounts
 
 Following Sign in, applications must:
-## Create an account
-## Maintain the tokens for future use.  To maintain the connection, please see the [token refresh documentation] (https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token).
-## [Provide the option to disconnect](https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token)
+* Create an account
+* Maintain the tokens for future use.  To maintain the connection, please see the [token refresh documentation] (https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token).
+* [Provide the option to disconnect](https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token)
 
 # Advanced
 
