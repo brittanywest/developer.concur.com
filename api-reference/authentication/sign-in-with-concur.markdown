@@ -48,10 +48,7 @@ Before you can integrate Sign in with Concur into your application, you need to 
 
 4. Initiate the Login flow. Your app must initiate the login flow by redirected to the below endpoint.
 
-Note that this call requires your client secret so should be made from a server.
-
 `GET /oauth2/v0/authorize`
-
 
 Example:
 
