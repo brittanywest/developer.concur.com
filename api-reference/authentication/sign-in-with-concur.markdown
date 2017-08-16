@@ -133,13 +133,13 @@ Apps should then provide the user with alternative connection methods:
 
 # Account Context
 
-Once connected, your app can access context to easily create a user account. Please refer to the [user API documentation](https://developer.concur.com/api-reference/user/) for more information.
+Once connected, your app can access context to easily create a user account. Please refer to the [user API documentation](https://developer.concur.com/api-reference/user) for more information.
 
 # Managing Connections
 
 Following Sign In, applications must:
 
-* Maintain the tokens for future use.  To maintain the connection, please see the [token refresh documentation] (https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token).
+* Maintain the tokens for future use.  To maintain the connection, please see the [token refresh documentation](https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token).
 * [Provide the option to disconnect](https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token)
 
 
