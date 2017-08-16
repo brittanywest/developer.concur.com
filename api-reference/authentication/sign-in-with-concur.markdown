@@ -20,6 +20,11 @@ For users
 * Quick and hassle-free way to sign up for a new app
 * Secure: User’s Concur credentials are never shared with partners   
 
+## Who can use this service?
+
+This service is for TripLink Travel Suppliers and Third-party Developers interested in improving their sign in experience.
+
+For TripLink Travel Suppliers, please see the appendix for information to support the available TripLink configurations.
 
 ## Certification
 
@@ -32,23 +37,23 @@ The below steps cover implementing "Sign in with Concur" within your website.
 ### Steps
 
 
-#### Request an app.
+#### 1. Request an app.
 Before you can integrate Sign in with Concur into your application, you need to register your application with Concur. You can do this by contacting your Partner Enablement Manager or Partner Account Manager. Once you have registered an application, you will receive a clientId and clientSecret. The clientId is a unique UUID4 identifier for your application, and the clientSecret is your application password. You will be using this credential to obtain tokens either for the application itself, or on behalf of a user.
 
 
-#### Load the Concur style library.
+#### 2. Load the Concur style library.
 
 ```
 <script src="https://static.concursolutions.com/" async defer></script>
 ```
 
-#### Add the "Sign in with Concur button". Styles will be applied from our style library.
+#### 3. Add the "Sign in with Concur button". Styles will be applied from our style library.
 
 ```
 <div class="concur-signin" data-onsuccess="onSignIn"></div>
 ```
 
-#### Initiate the Login flow. Your app must initiate the login flow by redirected to the below endpoint.
+#### 4. Initiate the Login flow. Your app must initiate the login flow by redirected to the below endpoint.
 
 `GET /oauth2/v0/authorize`
 
@@ -79,13 +84,14 @@ This renders the Sign in with Concur screen which presents two options to the us
 
 To view the Sign in with Concur flow from an end-user perspective, please see our user guide here.
 
-#### Once signed in, the user will be redirected to your redirect URI with a temporary token appended. 
+#### 5. Once signed in, the user will be redirected to your redirect URI with a temporary token appended. 
 
 ```
-YourRedirectUri?cc={token}
+Your_Redirect_Uri?
+cc={token}
 ```
 
-#### Exchanging the token. Your app must parse the token and [exchange the token for a long lived refresh token](https://developer.concur.com/api-reference/authentication/apidoc.html#password_grant).
+#### 6. Exchanging the token. Your app must parse the token and [exchange the token for a long lived refresh token](https://developer.concur.com/api-reference/authentication/apidoc.html#password_grant).
 
 When the partner receives the redirect_uri call with the `cc` token, partner needs to call oauth2’s `/verify_otl` endpoint.
 
@@ -112,20 +118,66 @@ Connection: Close
 
 Tokens should be stored and an account created.
 
-# Create and Manage Accounts
+# Error Handling & Cancelled Sign In
+In the case the user leaves the sign in process or sign in is unsuccessful, the user will be redirected to the following:
 
-Following Sign in, applications must:
-* Create an account
+```
+Your_Redirect_Uri?
+ error_code=user_denied
+ &error_description=The+user+denied+your+request.
+```
+
+Apps should then provide the user with alternative connection methods:
+* Log in by creating an account
+* Attempt Sign in with Concur with an alternate credential
+
+# Account Context
+
+Once connected, your app can access context to easily create a user account. Please refer to the [user API documentation](https://developer.concur.com/api-reference/user/) for more information.
+
+# Managing Connections
+
+Following Sign In, applications must:
+
 * Maintain the tokens for future use.  To maintain the connection, please see the [token refresh documentation] (https://developer.concur.com/api-reference/authentication/apidoc.html#refresh_token).
 * [Provide the option to disconnect](https://developer.concur.com/api-reference/authentication/apidoc.html#revoke_token)
+
 
 # Advanced
 
 ## Merging Accounts
 For partners that also support an existing log in, there are several instances that may require merging of accounts:
-1. A customer has an existing account but would like to use Sign in with Concur.
-2. A use previously using Sign in with Concur would like to create an application account.
 
+1. A customer has an existing account but would like to use Sign in with Concur.
+2. A user previously using Sign in with Concur would like to create an application account.
+
+In both cases, multiple accounts will exist. It is recommended that your app attempt to search for existing accounts and merge. The most common method is by leveraging email address from the [user API](https://developer.concur.com/api-reference/user/) or the loyalty program number from the [Travel Profile API](https://developer.concur.com/api-reference/travel-profile/03-loyalty-program-resource.html)
+and matching existing accounts.
+
+In some cases, users may leverage different email addresses within your application or the loyalty number may not be available and the user cannot be matched to data within Concur. Given that, we recommend that your app provide a separate "merge accounts" option allowing a user to manually merge their Concur and application accounts.
+
+[TBP - which email addresses to use]
+
+## TripLink Configurations
+
+Depending on the products the customer has enabled, integrations and features available with Sign in with Concur vary. The following defines the scopes that are applicable product combinations. Your application must support each of the below potential scope configurations:
+
+TripLink Access:
+* Travel Profile
+* Client Discount Code
+* User form of Payment
+* Ghost Card
+* Itinerary
+* E-Receipt
+
+Non-Triplink Access:
+* Travel Profile
+* E-receipt
+
+Expense Only Access:
+* E-receipt
+
+[TBD how TripLink apps will be notified of the applicable scopes - potentially modify scopes on the token exchange]
 
 ## Supported Languages
 
